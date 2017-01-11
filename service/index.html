@@ -1,0 +1,72 @@
+<html>
+
+	<head>
+		<title>AngularJS Service Factory and Providers</title>
+		<script src="../app/components/angular.min.js"></script>
+	</head>
+
+	<body ng-app="myApp">
+		<div class="container" style="padding-top:20px;">
+			<div ng-controller="myController">
+				<p>From Service: {{serviceName}}</p>
+				<p>From Factory: {{factoryName}}</p>
+				<p>From Provider: {{providerName}}</p>
+			</div>
+		</div>
+
+		<script>
+			//defining module
+			var app = angular.module('myApp', []);
+
+			//defining service
+			app.service('myService', function() {
+				this.name = 'Value Default';
+				this.setName = function(newName) {
+					this.name = newName;
+					return this.name;
+				};
+			});
+
+			//defining factory
+			app.factory('myFactory', function() {
+				var serviceObj = {};
+				serviceObj.name = '';
+				serviceObj.setName = function(newName) {
+					serviceObj.name = newName;
+				};
+				return serviceObj;
+			});
+
+			//defining provider
+			//Providers are the only service you can pass into your .config() function
+			app.provider('configurable', function() {
+				var privateName = '';
+				this.setName = function(newName) {
+					privateName = newName;
+				};
+				this.$get = function() {
+					return {
+						name: privateName
+					};
+				};
+			});
+
+			//configuring provider
+			app.config(function(configurableProvider) {
+				configurableProvider.setName("Mr.Lun");
+			});
+
+			//defining controller
+			app.controller('myController', function($scope, myService, myFactory, configurable) {
+				$scope.serviceName = myService.setName("Thanh Nguyen");
+				//$scope.serviceName = myService.name;
+
+				myFactory.setName("Saksham Chauhan");
+				$scope.factoryName = myFactory.name;
+
+				$scope.providerName = configurable.name;
+			});
+		</script>
+	</body>
+
+</html>

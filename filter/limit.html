@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app>
+
+<head>
+    <title>Angular Filter - limiTo</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.js"></script>
+
+</head>
+
+<body>
+
+    <div ng-controller="limitController">
+
+        Defined Array of Numbers: {{numbers}}<br>
+        <br>Limit to:
+        <input type="integer" ng-model="limit">
+
+        <p>Array after limiting to {{limit}} numbers : {{ numbers | limitTo:limit }}</p>
+        <p>{{xss}}</p>
+
+    </div>
+
+</body>
+<script>
+    function limitController($scope) {
+        $scope.numbers = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+        $scope.limit = 5;
+    }
+</script>
+
+</html>

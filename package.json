@@ -1,0 +1,14 @@
+{
+  "name": "angular",
+  "version": "1.0.0",
+  "description": "using http-server to run localhost",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "thanhbka@yahoo.com",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^0.9.0"
+  }
+}

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Learn Angular Demo</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">       
+        <link rel='stylesheet' href='app/components/loading-bar.min.css' type='text/css' media='all' /> 
+        <style type="text/css">
+			.ng-invalid{color: red;}
+			.red{
+                padding: 20px;
+                background-color: red;
+                color:#FFF;
+            }
+            .border{
+                border:solid 1px blue;
+            }
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <!-- AngularJS -->
+        <script language="javascript" src="app/components/angular.min.js"></script>
+        <script type='text/javascript' src='app/components/loading-bar.min.js'></script>
+        <script language="javascript" src="app/app.js"></script>
+        <script language="javascript" src="app/otherModule.js"></script>
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="../app/lib/css/bootstrap.min.css">        
+        <script src="../app/lib/js/bootstrap.min.js"></script>
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="../app/lib/css/materialize/css/materialize.min.css">        
+        <script src="../app/lib/css/materialize/js/materialize.min.js"></script>        
+    </head>
+    <body ng-app="myapp"> 
+        
+        <div class="row">
+            <input ng-model="username"/>{{username | uppercase}}
+            <br>
+            <input ng-model="message"/>{{message}}
+
+            <div ng-controller="HeaderController">
+                <h2>Xin chào {{data.title}} đến với website {{data.website}}!</h2>
+                <input type="text" ng-model="message"/>{{message}}
+            </div>
+
+            <div ng-controller="ContentController">
+                <h2>Xin chào {{data.title}} đến với website {{data.website}}!</h2>
+                <input type="text" ng-model="message"/>
+                {{message}}
+            </div>
+
+            <div ng-controller="WebsiteInfomation">
+                <p>
+                    Chủ sở hữu: {{data.fullname}} <br/>
+                    Email: <strong> {{data.email}} </strong> <br/>
+                    Điện Thoại: {{data.phone}} <br/>
+                    Chủ Đề: {{data.topic}} <br/>
+                    Website: {{data.website}}
+                </p>
+            </div>   
+
+            <div ng-controller="MyController">
+                Nhập tên của bạn:
+                <input type="text" value="" ng-model="username">
+                <button ng-click='sayHello()'>In thông báo</button>
+                <hr>
+                {{greeting}}
+            </div>
+
+            <div ng-controller="TopController">
+                <div ng-controller="GreetController">
+                    Hello {{name}}!
+                </div>
+                <div ng-controller="ListController">
+                    Hello {{name}}!
+                </div>
+                {{name}}
+            </div>  
+
+            <div ng-controller="Controller1">
+                <h2>Nhập nội dung thông bao:</h2>
+                <input ng-model="name"> <br/>
+                <h2>Nội dung bạn đang gõ là:</h2>
+                <span ng-bind="name"></span>
+                <div>{{name}}</div>
+
+                {{demo}}
+                <div ng-init="demo='Nội dung ng-init'">{{demo}}</div>
+                {{demo}}
+                <div my-directive></div>
+            </div>  
+
+            <form name="calForm" ng-controller="Controller2">
+                <h2>{{message.title}}</h2>
+                <h5>{{message.num1}}:</h5>
+                <input ng-model="so_thu_nhat" ng-required='true' ng-pattern="/^[0-9]+$/" class="my-input" ng-keyup="show_result()" />
+                <h5>{{message.num2}}:</h5>
+                <input ng-model="so_thu_hai" ng-required='true' ng-pattern="/^[0-9]+$/" class="my-input" ng-keyup="show_result()" />
+                <div style='{{styleresult}}'>
+                    {{message.phep_cong}} {{result.phep_cong}}<br/>
+                    {{message.phep_tru}}  {{result.phep_tru}}<br/>
+                    {{message.phep_nhan}} {{result.phep_nhan}}<br/>
+                    {{message.phep_chia}} {{result.phep_chia}}
+                </div>
+            </form>
+
+            <div ng-controller="Controller3">
+                <form name="userForm">
+                    <h5>Nhập nội dung của bạn nào</h5>
+                    <input type="text" name="userName" ng-model-options="{updateOn:'blur'}" ng-model="user.name"/><br />
+                    <h5>Chuỗi mà Bạn đang nhập là:</h5>
+                    <span ng-bind="user.name"></span>
+                    <h5>Nhập nội dung của bạn nào</h5>
+                    <input type="text" name="userName" ng-model-options="{debounce: 1000}" ng-model="user.message"/><br />
+                    <h5>Chuỗi mà Bạn đang nhập là:</h5>
+                    <span ng-bind="user.message"></span>
+                </form>
+
+                Name <input type="text" ng-model="name"><br>
+                Website: <input type="text" ng-model="website"><br>
+                <pre ng-bind-template="{{name}} {{website}}!"></pre>
+
+                <form name="myForm" class="my-form">
+                    Thông báo: <input name="input" ng-model="userType" required><br/>
+                    <tt>myForm.input.$valid = {{myForm.input.$valid}}</tt><br>
+                    <tt>myForm.input.$error = {{myForm.input.$error}}</tt><br>
+                    <tt>myForm.$valid = {{myForm.$valid}}</tt>
+                </form>
+
+                <form ng-submit="submit()">
+                    Nhập tên sinh viên
+                    <input type="text" ng-model="text" name="text" />
+                    <input type="submit" id="submit" value="Thêm" /> <br/>
+                    Danh sách sinh viên: <pre>list={{list}}</pre>
+                </form>
+
+                <h1>Đăng Nhập</h1>
+                <form name="myFormLogin" ng-submit="login()">
+                    User name: <br/>
+                    <input type="text" name="userName" ng-pattern="/^([a-zA-Z0-9]+)$/"  ng-model="username" ng-trim="true" required ng-minlength="3" ng-maxlength="10" /> <br/>
+                    Password: <br/>
+                    <input type="password" name="userPass" ng-model="password" required ng-minlength="3" ng-maxlength="10" ng-trim="true"> <br/><br/>
+                    <input type="submit" value='Login'/>
+                 </form>
+
+                <H1>Sở thích bạn là gì?</H1>
+                <form name="myFormCheckbox">
+                    Chơi Game: <input type="checkbox" ng-model="game"
+                                      ng-true-value="'CÓ'" ng-false-value="'KHÔNG'"/> <br/>
+                    Du Lịch: <input type="checkbox" ng-model="tour"
+                                    ng-true-value="'CÓ'" ng-false-value="'KHÔNG'"/> <br/>
+                    <h4>Bạn đang chọn</h4>
+                    <tt>Chơi Game = {{game}}</tt><br/>
+                    <tt>Du Lịch = {{tour}}</tt><br/>
+                </form>
+
+                <form name="myFormDate" ng-controller="DateController">
+                    <input type="date" name="input" ng-model="value" required min="2015-01-01" max="2015-12-31" />
+                    <tt>value: {{value | date: 'dd/MM/yyyy'}}</tt>
+                </form>
+
+                <h3>Chào mừng bạn đến với website freetuts.net</h3> <br/>
+                <h5>Click vào nếu bạn yêu cô ấy</h5>
+                <input type="checkbox" ng-model="o_checkbox" ><br/>
+                <div>
+                    <div ng-show="o_checkbox">
+                        YÊU NHIỀU LẮM
+                    </div>
+                    <div ng-hide="o_checkbox">
+                        YÊU NHIỀU LẮM HIDE
+                    </div>
+                </div>
+
+            </div>
+
+            <div ng-controller="Controller4">
+                <h3>Chào mừng bạn đến với website freetuts.net</h3>
+                <h2>Hỏi Đáp: Bạn năm nay bao nhiêu tuổi?</h2>
+                <input type="text" ng-model="your_age" ><br/>
+                <div>
+                    <div ng-hide="checkAge()">
+                        Bạn chưa đủ tuổi để yêu
+                    </div>
+                    <div ng-show="checkAge()">
+                        Yêu đi, ế rồi đó
+                    </div>
+                </div>
+            </div>
+           
+           <div ng-controller="LoopController">
+                <div ng-repeat="item in items" style="border:solid 1px red; margin: 10px">
+                    {{item}}
+                </div>
+                <div ng-repeat="(key, value) in users">
+                    {{key}} - {{value}}
+                </div>
+            </div>
+
+            <div ng-controller="InitController">
+                <ul ng-init="
+                            students = [
+                                {name: 'thehalfheart@gmail.com', age: 25, gender: 'boy'},
+                                {name: 'freetuts.net', age: 30, gender: 'girl'},
+                                {name: 'Johanna', age: 28, gender: 'girl'},
+                                {name: 'Joy', age: 15, gender: 'girl'},
+                                {name: 'Mary', age: 28, gender: 'girl'},
+                                {name: 'Peter', age: 95, gender: 'boy'},
+                                {name: 'Sebastian', age: 50, gender: 'boy'},
+                                {name: 'Erika', age: 27, gender: 'girl'},
+                                {name: 'Patrick', age: 40, gender: 'boy'},
+                                {name: 'Samantha', age: 60, gender: 'girl'}
+                            ]
+                     ">
+                    <li ng-repeat="student in students">
+                        Tên: {{student.name}}, Tuổi {{student.age}}, Giới tính: {{student.gender}}
+                    </li>
+                </ul>
+            </div>
+            <div id="simple" ng-controller="ServiceController">
+                <p>Nhập vào số chẵn thì sẽ thông báo lên màn hình</p>
+                <input ng-model="number" ng-change="xuat_thong_bao()"/>
+            </div>
+
+            <div ng-controller="Controller5">
+                <p ng-class="[border, red]">Học angularjs miễn phí tại freetuts.net</p> <br/>
+                <input type="text" ng-model="red" placeholder="Nhập vào red"/> Màu đỏ <br/><br/>
+                <input type="text" ng-model="border" placeholder="Nhập vào border"/> Có viền <br/>
+
+                <p ng-class="{red:scope_red, border:scope_border}">Học angularjs miễn phí tại freetuts.net</p> <br/>
+                <input type="checkbox" ng-model="scope_red"/> Màu đỏ <br/><br/>
+                <input type="checkbox" ng-model="scope_border"/> Có viền <br/>
+            </div>
+
+            <div ng-controller="Controller6">
+                <h1>Freetuts.net - ng-click</h1>
+                <input type="button" value="Click Me" ng-click="TangBienCount()" /> <br/><br/>
+                <span>Bạn đã click {{count}} lần</span>
+            </div>
+        </div>   	
+        
+    </body>
+</html>

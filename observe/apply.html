@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>AngularJS apply()</title>
+ <script src="../app/components/angular.min.js"></script>
+ <script>
+ var myapp = angular.module("myapp", []);
+ var myController = myapp.controller("myController", function ($scope) {
+ 
+	 $scope.datetime = new Date();
+	 
+	 $scope.updateTime = function () {
+	 	$scope.datetime = new Date();
+	 }
+	 
+	 document.getElementById("updateTimeButton").addEventListener('click', function () {
+		$scope.$apply(function () {
+			 console.log("update time clicked");
+			 $scope.datetime = new Date();
+			 
+			 console.log($scope.datetime);
+		});		 
+ 	});
+ });
+ </script>
+ 
+</head>
+<body ng-app="myapp" ng-controller="myController">
+ <button ng-click="updateTime()">Update time - ng-click</button>
+ <button id="updateTimeButton">Update time</button>
+ <br />
+ {{datetime | date:'yyyy-MM-dd HH:mm:ss'}}
+</body>
+</html>

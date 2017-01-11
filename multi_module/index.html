@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Learn Angular Demo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- AngularJS -->
+    <script language="javascript" src="../app/components/angular.min.js"></script>
+    <script src="app.js"></script>
+</head>
+
+<body ng-app="rootApp">
+    <h3>Multimodule</h3>
+    <div>
+        <div ng-controller="AppController as app">{{ app.name }} ::: {{name}}</div>
+        <div ng-controller="OtherController">{{ name }}</div>
+    </div>
+
+    <div ng-app="firstApp">
+        <div ng-controller="FirstController">
+            <p>1: {{ desc }}</p>
+        </div>
+    </div>
+
+    <div id="dvSecond">
+        <div ng-controller="SecondController ">
+            <p>2: {{ desc }}</p>
+        </div>
+    </div>
+</body>
+
+</html>

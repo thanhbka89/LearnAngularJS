@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Angular Demo</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body ng-app="spa">
+        <div ng-controller="SPAController">
+            <div>
+                <nav>
+                    <ul>
+                        <li><a href="#/">Home</a></li>
+                        <li><a href="#/about">About us</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <br/>
+            {{message}}
+            <div ng-view>
+                  <!--
+                     This DIV loads templates depending upon route.
+                 -->
+            </div>
+        </div>
+
+        <!-- Load .js at the bottom of the page to improve application load time  -->
+        <script language="javascript" src="app/components/angular.min.js"></script>
+        <script language="javascript" src="app/components/angular-route.min.js"></script>
+        <script language="javascript" src="app/scripts.js"></script>
+    </body>
+</html>

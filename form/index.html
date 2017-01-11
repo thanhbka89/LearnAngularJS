@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+<head>
+	<title>Angular Form</title>
+	<meta charset="UTF-8">
+	<!-- LOAD BOOTSTRAP CSS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+	<!-- LOAD JQUERY -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	<!-- LOAD ANGULAR -->
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+
+	<!-- jquery ajax -->
+	<!--
+	<script>
+		$(document).ready(function() {
+		$('form').submit(function(event) {
+		  $('#name-group').removeClass('has-error');
+		  $('#name-group .help-block').empty();
+		  $('#superhero-group').removeClass('has-error');
+		  $('#superhero-group .help-block').empty();
+		  $('#messages').removeClass('alert alert-success').empty();
+		  var formData = {
+		      'name'     : $('input[name=name]').val(),
+		      'email'    : $('input[name=email]').val()
+		  };
+		  $.ajax({
+		    type        : 'POST',
+		    url         : 'submit.php',
+		    data        : formData,
+		    dataType    : 'json',
+		    success     : function(data) {
+		      console.log(data);
+		      if ( ! data.success) {
+			if (data.errors.name) {
+			  $('#name-group').addClass('has-error');
+			  $('#name-group .help-block').html(data.errors.name);
+			}
+			if (data.errors.email) {
+			  $('#email-group').addClass('has-error');
+			  $('#email-group .help-block').html(data.errors.email);
+			}
+		      } else {
+			$('#messages').addClass('alert alert-success').append('<p>' + data.message + '</p>');
+		      }
+		    }
+		  });
+		  event.preventDefault();
+		});
+		});
+	</script>
+	-->
+	<!-- angular ajax -->
+	<script>		
+		var formApp = angular.module('formApp', []);
+		function formController($scope, $http) {
+			$scope.formData = {};
+			$scope.processForm = function() {
+				$http({
+			        method  : 'POST',
+			        url     : 'submit.php',
+			        data    : $.param($scope.formData),
+			        headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
+			    })
+			        .success(function(data) {
+			            console.log(data);
+
+			            if (!data.success) {
+			                $scope.errorName = data.errors.name;
+			                $scope.errorEmail = data.errors.email;
+			            } else {
+			                $scope.message = data.message;
+                            $scope.errorName = '';
+			                $scope.errorEmail = '';
+			            }
+			        });
+			};
+		}
+	</script>
+    <style>
+        .ng-valid.ng-dirty{
+            border-color: green;
+        }
+        .ng-invalid.ng-dirty{
+            border-color: red;
+        }
+    </style>
+</head>
+<body ng-app="formApp" ng-controller="formController">
+	<div class="container">
+		<div class="col-md-6 col-md-offset-3">
+			<div class="page-header">
+				<h1>Xin chào Ajax, AngularJS và PHP</h1>
+			</div>
+			<div id="messages" class="well" ng-show="message">{{ message }}</div>
+			<form ng-submit="processForm()">
+				<div id="name-group" class="form-group" ng-class="{ 'has-error' : errorName }">
+					<label>Tên của bạn</label>
+					<input type="text" name="name" class="form-control" placeholder="Tên chỗ này" ng-model="formData.name">
+		            <span class="help-block" ng-show="errorName">{{ errorName }}</span>
+				</div>
+				<div id="superhero-group" class="form-group" ng-class="{ 'has-error' : errorEmail }">
+					<label>Email của bạn</label>
+					<input type="text" name="email" class="form-control" placeholder="Email chỗ này" ng-model="formData.email">
+					<span class="help-block" ng-show="errorEmail">{{ errorEmail }}</span>
+				</div>
+				<button type="submit" class="btn btn-success btn-lg btn-block">
+					<span class="glyphicon glyphicon-flash"></span> Tải lên!
+				</button>
+			</form>
+			<pre>
+				{{ formData }}
+			</pre>
+		</div>
+	</div>
+</body>
+</html>

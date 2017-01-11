@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app>
+
+<head>
+    <title> Angular Filter - Currency</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+</head>
+
+<body>
+
+    <div ng-controller="currencyController">
+
+        Quantity: <input type="number" ng-model="quantity"> Price: <input type="number" ng-model="price">
+
+        <p>Toal Default = {{ (quantity * price) | currency }}</p>
+        <p>Total in INR = {{ (quantity * price) | currency :"INR " }}</p>
+
+    </div>
+
+    <script>
+        function currencyController($scope) {
+            $scope.quantity = 1;
+            $scope.price = 10;
+        }
+    </script>
+
+</body>
+
+</html>

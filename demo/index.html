@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Learn Angular Demo</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="../app/lib/css/custom.css">  
+
+        <script src="../app/lib/js/jquery-2.1.4.min.js"></script>
+        <!-- AngularJS -->
+        <script language="javascript" src="../app/components/angular.min.js"></script>
+        <script language="javascript" src="../app/components/angular-resource.min.js"></script>   
+        <script language="javascript" src="../app/components/angular-cookies.min.js"></script>            
+
+        <!-- Latest compiled and minified CSS, Javascript Bootstrap -->
+        <link rel="stylesheet" href="../app/lib/css/bootstrap.min.css">        
+        <script src="../app/lib/js/bootstrap.min.js"></script>
+    </head>
+
+    <body ng-app="mainApp">  
+        <div class="center-block">
+            <div>
+                <h3>Ví dụ ng-model trong Angularjs</h3>  	
+                <input class="form-control" ng-model="nametest"/> Xin chào : {{nametest | uppercase}}  
+            </div>
+            <div ng-controller="DemoAs as main">
+                <input class="form-control" ng-model="main.name" ng-init="main.title = 'hello'"/>
+                {{main}}
+            </div>
+
+            <div ng-controller="SumController">
+                <h3>Ví dụ Controller trong Angularjs</h3>
+                Nhập số  A : <input type="number" ng-model="num_a"> <br />
+                Nhập số  B : <input type="number" ng-model="num_b"> <br />
+                <input type="button" ng-click="sum_ab()" value="Tính tổng"> <br />
+                <p>Tổng 2 số A và B là : {{ sum }}</p>
+            </div>
+
+            <div class="col-sm-10 row" ng-controller="CalculatorController">
+                <h3>Ví dụ Service trong Angularjs</h3>
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Nhập số a</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="inputEmail3" ng-model="a" placeholder="Nhập số a">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Nhập số b</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="inputEmail3" ng-model="b" placeholder="Nhập số b">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <input type="button" class="btn btn-default" ng-click="add()" value="Tính tổng">
+                            <input type="button" class="btn btn-default" ng-click="subtract()" value="Tính hiệu">
+                            <input type="button" class="btn btn-default" ng-click="multiply()" value="Tính tích">
+                            <input type="button" class="btn btn-default" ng-click="divide()" value="Tính thương">
+                        </div>
+                    </div>
+                </form>            
+                
+                <div>Kết quả là : <span class="bg-success">{{result}}</span></div>
+            </div>
+
+            <div class="col-sm-10 row" ng-controller="FormController">            
+                <h3>AngularJS Form Validation</h3>            
+                <!-- pass biến $valid để kiểm tra form của chúng ta valid hay không-->
+                <form class="form-horizontal" name="userForm" ng-submit="submitForm(userForm.$valid)" novalidate> <!-- thuộc tính novalidate chặn HTML5 validation bởi vì chúng ta sẽ sử dụng AngularJs validation -->  
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Name</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" name="name" ng-model="name" required placeholder="Tên">
+                          <p ng-show="userForm.name.$invalid && !userForm.name.$pristine">You name is required.</p>
+                        </div>                    
+                    </div> 
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Username</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="username" ng-model="username" ng-minlength="3" ng-maxlength="8" placeholder="Username">
+                            <p ng-show="userForm.username.$error.minlength" class="help-block">Username is too short.</p>
+                            <p ng-show="userForm.username.$error.maxlength" class="help-block">Username is too long.</p>
+                        </div>                    
+                    </div>  
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-10">
+                          <input type="email" class="form-control" name="email" ng-model="email" placeholder="Email">
+                          <p ng-show="userForm.email.$invalid && !userForm.email.$pristine">Enter a valid email.</p>
+                        </div>                    
+                    </div>                 
+
+                    <!-- SUBMIT BUTTON -->
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-default">Submit</button>
+                        </div>
+                    </div>
+                    
+                </form>
+            </div>
+
+            <div class="row col-md-10" ng-controller='WebController' ng-cloak>
+                <h3>Doing it in prefered way (Wrapping $http in a factory)</h3>
+                <div ng-cloak>{{friends}}</div>
+                <div ng-repeat="testResult in resultData">
+                    {{testResult.email}}
+                    {{testResult.author}}
+                </div>
+            </div>  
+
+            <div class="row col-md-10">
+                <h3>Directive</h3>
+                <h4>Invoked as an element</h4>
+                <my-directive>
+                </my-directive>
+                <h4>Invoked as a class</h4>
+                <div class="my-directive"></div>
+                <h4>Invoked as an attribute</h4>
+                <div my-directive></div>     
+            </div>
+
+            <div class="row col-md-10" ng-controller="FoodCtrl">
+                <h3>Table</h3>
+                <div>
+                    <input type="text" class="search" ng-model="searchString" placeholder="Enter your search terms" />
+                </div>
+                <table class="table table-bordered" >
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                    </tr>
+                    <tr ng-repeat="item in foodItems | searchFor:searchString" ng-class="{'selected':$index == selectedRow}"  ng-click="setClickedRow($index)">
+                        <td>{{$index}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.price}}</td>
+                        <td>{{item.quantity}}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div ng-controller="CookieCtrl"></div>
+
+        </div>        
+
+        <script language="javascript" src="../app/demo.js"></script>   
+        <script type="text/javascript">
+            jQuery(function ($) {        
+                //alert(123);      
+            });
+        </script>
+    </body>
+</html>

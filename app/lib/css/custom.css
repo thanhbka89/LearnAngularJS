@@ -1,0 +1,19 @@
+.selected {
+    background-color:black;
+    color:white;
+    font-weight:bold;
+}
+
+.center-block {
+	/*display: block;
+	margin-right: auto;
+	margin-left: auto;*/
+	width: 90%;  
+	padding: 10px;  
+	/*background-color: #eceadc;  
+	color: #ec8007*/      
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="">
+
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+</head>
+
+<body>
+
+    <div ng-controller="playerController">
+
+        Name:<input type='text' ng-model='filterName' />
+        <ul>
+            <li ng-repeat="player in players |filter:filterName | orderBy:'name'">
+                {{ player.name + ' : ' + player.country }}
+            </li>
+        </ul>
+
+    </div>
+
+    <script>
+        function playerController($scope) {
+            $scope.players = [
+                {
+                    name: 'Elano Blumer',
+                    country: 'Brazil'
+                },
+                {
+                    name: 'David James',
+                    country: 'England'
+                },
+                {
+                    name: 'Iain Hume',
+                    country: 'Canada'
+                }
+            ];
+        }
+    </script>
+
+</body>
+
+</html>

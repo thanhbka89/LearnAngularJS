@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>AngularJS Custom Directive</title>
+	<link href="../app/lib/css/bootstrap.min.css" rel="stylesheet" />	
+	<script src="../app/lib/js/jquery-2.1.4.min.js"></script>
+	<script src="../app/components/angular.min.js"></script>
+</head>
+<body>
+	<div ng-app="myApp" ng-controller="mainController">
+		<br />
+		<div class="container">
+			<form name="userForm" ng-submit="submitForm()" novalidate>
+				<h2>AngularJS Custom Directive (comparing input values)</h2>
+
+				<!-- EMAIL -->
+				<div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid}">
+					<label>Email</label>
+					<input type="email" name="email" class="form-control" ng-model="user.email" placeholder="Your Email Address" ng-required="true">
+					<p ng-show="userForm.email.$error.required" class="help-block">Email is required.</p>
+					<p ng-show="userForm.email.$error.email" class="help-block">Enter a valid email.</p>
+				</div>
+
+				<!-- Password -->
+				<div class="form-group" ng-class="{ 'has-error' : userForm.password.$invalid}">
+					<label>Password</label>
+					<input type="Password" name="password" id="password" class="form-control" ng-model="user.password" placeholder="Your Password" ng-required="true">
+					<p ng-show="userForm.password.$invalid" class="help-block">Your password is required.</p>
+				</div>
+
+				<!-- Confirm Password -->
+				<div class="form-group" ng-class="{ 'has-error' : userForm.confirmPassword.$invalid}">
+					<label>Confirm Password</label>
+					<input type="Password" name="confirmPassword" class="form-control" ng-model="user.confirmPassword" placeholder="Confirm Your Password" ng-compare="password" ng-required="true">
+					<p ng-show="userForm.confirmPassword.$error.required" class="help-block">Your confirm password is required.</p>
+					<p ng-show="userForm.confirmPassword.$error.valueMatch && !userForm.confirmPassword.$error.required" class="help-block">Confirm password doesnot match.</p>
+				</div>
+
+				<button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Register</button>
+			</form>
+		</div>
+	</div>
+ 
+	<script>
+	 //defining module
+	 var myapp = angular.module('myApp', []);
+	 
+	 //creating custom directive
+	 myapp.directive('ngCompare', [function () {
+	 	return {
+	 		require: 'ngModel',
+	 		link: function (scope, elem, attrs, ctrl) {
+	 			var firstfield = "#" + attrs.ngCompare;
+
+				//second field key up
+				elem.on('keyup', function () {
+				 	scope.$apply(function () {
+				 		var isMatch = elem.val() === $(firstfield).val();
+				 		ctrl.$setValidity('valueMatch', isMatch);
+				 	});
+				 });
+				 
+				 //first field key up
+				 $(firstfield).on('keyup', function () {
+				 	scope.$apply(function () {
+				 		var isMatch = elem.val() === $(firstfield).val();
+				 		ctrl.$setValidity('valueMatch', isMatch);
+				 	});
+				 });
+				}
+			}
+	}]);
+	 
+	 // create angular controller
+	 myapp.controller('mainController', function ($scope) {
+
+		 // function to submit the form
+		 $scope.submitForm = function () {
+
+			 // check to make sure the form is completely valid
+			 if ($scope.userForm.$valid) {
+			 	alert('form is submitted');
+			 }
+		};
+	});
+</script>
+</body>
+</html>
