@@ -2,7 +2,7 @@
 
 // declare modules
 angular.module('Authentication', []);
-angular.module('Home', []);
+angular.module('Home', ['ngCookies']);
 
 angular.module('BasicHttpAuthExample', [
     'Authentication',
