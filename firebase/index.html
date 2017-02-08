@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="chat.css" type="text/css" media="screen">
+    <script
+			  src="https://code.jquery.com/jquery-1.12.4.min.js"
+			  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+			  crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
+    <script src="https://cdn.firebase.com/js/client/2.0.4/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/0.9.0/angularfire.min.js"></script>
+</head>
+
+<body>
+    <div id="live-chat" ng-app="app">
+        <header class="clearfix">
+            <a href="#" class="chat-close">x</a>
+            <h4>Trò chuyện linh tinh</h4>
+        </header>
+        <div class="chat" ng-controller="chatCtrl" style="display: none;">
+            <div class="chat-history">
+                <div ng-repeat="chatMessage in chatMessages">
+                    <div class="chat-message clearfix">
+                        <img src="avatar.jpg" alt="" width="32" height="32">
+                        <div class="chat-message-content clearfix">
+                            <span class="chat-time">{{chatMessage.datetime}}</span>
+                            <h5>{{chatMessage.name}}</h5>
+                            <p>{{chatMessage.message}}</p>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+            <form>
+                <fieldset>
+                    <input type="text" placeholder="Điền tên" ng-model="name">
+                    <input type="text" placeholder="Lời muốn nói…" autofocus ng-model="chatMes">
+                    <button type="submit" ng-click="sendChat()">Gửi</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        (function() {
+            $('#live-chat header').on('click', function() {
+                $('.chat').slideToggle(300, 'swing');
+                $('.chat-message-counter').fadeToggle(300, 'swing');
+            });
+
+            $('.chat-close').on('click', function(e) {
+                e.preventDefault();
+                $('#live-chat').fadeOut(300);
+            });
+        }) ();
+    </script>
+
+    <script type="text/javascript">
+        var app = angular.module('app', ['firebase']);
+
+        app.controller('chatCtrl', ['$scope', '$firebase', function($scope, $firebase) {
+            var ref = new Firebase("https://chatdemo-e9680.firebaseio.com");
+            var sync = $firebase(ref);
+            $scope.chatMessages = sync.$asArray();
+
+            $scope.sendChat = function() {
+                var currentdate = new Date();
+                var datetime = currentdate.getDate() + "/" +
+                    (currentdate.getMonth() + 1) + "/" +
+                    currentdate.getFullYear() + " @ " +
+                    currentdate.getHours() + ":" +
+                    currentdate.getMinutes() + ":" +
+                    currentdate.getSeconds();
+
+                var chatMessage = {
+                    name: $scope.name,
+                    message: $scope.chatMes,
+                    datetime: datetime
+                };
+                $scope.chatMessages.$add(chatMessage);
+                $scope.chatMes = "";
+            }
+        }]);
+    </script>
+</body>
+
+</html>
