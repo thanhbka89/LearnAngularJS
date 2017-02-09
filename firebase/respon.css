@@ -1,0 +1,48 @@
+/*
+Như mình nói ở trên, Mobile-first nghĩa là chúng ta sẽ tập trung cho các thiết bị di động trước và sau đó thì mới đến giao diện dành cho Desktop. Về mặt kỹ thuật, thì chúng ta làm các bước sau đây:
+
+Viết CSS cho các phần tử tổng thể, các phần tử này sẽ không bao giờ thay đổi dù ở giao diện di động hay desktop (màu font chữ, background,..).
+Viết giao diện cho mobile.
+Viết giao diện cho máy tính bảng.
+Viết giao diện cho Desktop.
+*/
+
+/*@media only screen and (min-width: 320px) and (max-width: 374px)
+{
+    #wrapper{
+        margin: 0px 10px;
+    }
+
+    #content, #sidebar{
+        float:none;
+        width: 100%;
+    }
+}*/
+
+/* Dành cho điện thoại */
+@media all and (min-width: 320px) {
+  #wrapper{
+      margin: 0px 10px;
+  }
+
+  #content, #sidebar{
+      float: none;
+      width: 100%;
+  }
+}
+/* Dành cho máy tính bảng chiều dọc */
+@media all and (min-width: 600px) {
+  #wrapper{
+      margin: 10px 50px;
+  }
+  #content{ width: 70%; float: left; }
+  #sidebar{ width: 30%; float: right; }
+}
+/* Dành cho máy tính bảng chiều ngang */
+@media all and (min-width: 1024px) {
+
+}
+/* Dành cho màn hình desktop */
+@media all and (min-width: 1280px) {
+
+}

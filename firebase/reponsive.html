@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Reposive</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="reset.css" rel="stylesheet" type="text/css" />
+    <!-- Cách 2
+    <link rel="stylesheet" type="text/css" href="mobile.css" media="screen and (min-width: 18.750em)" />
+    <link rel="stylesheet" type="text/css" href="tablet.css" media="screen and (min-width: 34.3750em)" />
+    <link rel="stylesheet" type="text/css" href="desktop.css" media="screen and (min-width: 480em)" />
+    -->
+    <style media="screen">
+      *{
+        margin: 0px;
+        padding: 0px;
+      }
+      body{ background: #E5E5E5; color: #fff;}
+      /*#wrapper{ width: 1024px; margin: 0px auto;}*/
+      #header, #footer { min-height: 150px; text-align: center; background:#000;}
+      #content { background: #44C52C; }
+      #content, #sidebar { min-height: 500px; }
+      .block_sidebar { min-height: 150px; margin-bottom: 25px; background: #D86262; }
+      .clearfix:after{
+        clear: both;
+        content: "";
+        display: block;
+        width: 0px;
+        height: 0px;
+      }
+    </style>
+    <link href="respon.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="header">
+            HEADER
+        </div>
+        <div id="wp_content" class="clearfix">
+            <div id="content">
+                CONTENT
+            </div>
+            <div id="sidebar">
+                <div class="block_sidebar">
+                    SIDEBAR 1
+                </div>
+                <div class="block_sidebar">
+                    SIDEBAR 2
+                </div>
+                <div class="block_sidebar">
+                    SIDEBAR 3
+                </div>
+            </div>
+        </div>
+        <div id="footer">
+            FOOTER
+        </div>
+    </div>
+</body>
+
+</html>
