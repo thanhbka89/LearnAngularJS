@@ -1,0 +1,68 @@
+<html>
+
+<head>
+    <title>Broadcasting</title>
+    <meta name="desc" value="Để lan truyền sự kiện từ 1 controller đến tất cả controller còn lại, bạn tạo 1 service để thực hiện việc lan truyền từ rootScope."></meta>
+    <script src="../app/components/angular.min.js"></script>
+    <script>
+        var shareModule = angular.module("shareModule", []);
+        shareModule.factory("shareService", function($rootScope) {
+            var shareService = {};
+            shareService.message = "";
+            shareService.broadcastMessage = function(message) {
+                shareService.message = message;
+                $rootScope.$broadcast("notifyMessageChange");
+            }
+            return shareService;
+        });
+        var myApp = angular.module("app", ["shareModule"]);
+        //service style, probably the simplest one
+
+        myApp.controller("ACtrl", function($scope, shareService) {
+            $scope.message = "Broadcast Message";
+            $scope.notify = function() {
+                shareService.broadcastMessage($scope.message);
+            };
+            $scope.$on("notifyMessageChange", function() {
+                $scope.message = shareService.message;
+            });
+        });
+        myApp.controller("BCtrl", function($scope, shareService) {
+            $scope.message = "Broadcast Message";
+            $scope.$on("notifyMessageChange", function() {
+                $scope.message = shareService.message;
+            });
+        });
+        myApp.controller("CCtrl", function($scope, shareService) {
+            $scope.message = "Broadcast Message";
+            $scope.$on("notifyMessageChange", function() {
+                $scope.message = shareService.message;
+            });
+        });
+    </script>
+</head>
+
+<body ng-app="app">
+    <div class="container" ng-app="myapp">
+        <div ng-controller="ACtrl">
+            <label>A Controller:</label>
+            <div class="form-group">
+                <label for="broadcastMessage">Input message</label>
+                <input type="text" class="form-control" id="broadcastMessage" placeholder="Enter your message" ng-model="message">
+                <button class="btn btn-primary" ng-click="notify()">Notify</button>
+            </div>
+            Result:
+            <div>{{message}}</div>
+        </div>
+        <div ng-controller="BCtrl">
+            <label>B Controller:</label>
+            <div>{{message}}</div>
+        </div>
+        <div ng-controller="CCtrl">
+            <label>C Controller:</label>
+            <div>{{message}}</div>
+        </div>
+    </div>
+</body>
+
+</html>
