@@ -1,0 +1,47 @@
+<html>
+
+<head>
+    <title>Controler Inherited</title>
+    <meta name="desc" value="$emit dùng để giao tiếp event giữa child và parent"></meta>
+    <script src="../app/components/angular.min.js"></script>
+    <style media="screen">
+        div {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+    </style>
+    <script>
+        var myApp = angular.module("app", []);
+
+        myApp.controller("CarController", function($scope, $window) {
+            $scope.name = 'Car';
+            $scope.type = 'TypeCar';
+
+            $scope.clickme = function() {
+                $window.alert('This is parent controller "CarController" calling');
+            }
+        });
+
+        myApp.controller("BMWController", function($scope, $controller) {
+            // $injector.invoke(CarController, this, {
+            //     $scope: $scope
+            // });
+            $controller('CarController', { $scope: $scope });
+
+            $scope.name = 'BMW';
+        });
+    </script>
+</head>
+
+<body ng-app="app">
+    <div ng-controller="BMWController">
+
+        My name is {{ name }} and I am a {{ type }}
+
+        <button ng-click="clickme()">Click Me</button>
+
+    </div>
+</body>
+
+</html>

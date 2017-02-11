@@ -1,0 +1,44 @@
+<html>
+
+<head>
+    <title>Controler Nested</title>
+    <meta name="desc" value="$emit dùng để giao tiếp event giữa child và parent"></meta>
+    <script src="../app/components/angular.min.js"></script>
+    <style media="screen">
+      div {
+        margin:10px;padding:10px;
+        border:1px solid #ddd;
+      }
+    </style>
+    <script>
+        var myApp = angular.module("app", []);
+
+        myApp.controller("CarController", function($scope) {
+          $scope.name = 'Car';
+          $scope.type = 'Car';
+        });
+
+        myApp.controller("BMWController", function($scope) {
+          $scope.name = 'BMW';
+        });
+
+        myApp.controller("BMWMotorcycleController", function($scope) {
+          $scope.name = 'BMWMotorade';
+          $scope.type = 'Motorcycle';
+        });
+    </script>
+</head>
+
+<body ng-app="app">
+  <div ng-controller="CarController">
+    My name is {{ name }} and I am a {{ type }}
+    <div ng-controller="BMWController">
+        My name is {{ name }} and I am a {{ type }}
+        <div ng-controller="BMWMotorcycleController">
+            My name is {{ name }} and I am a {{ type }}
+        </div>
+    </div>
+  </div>
+</body>
+
+</html>
