@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AngularJS Custom Directive</title>
+    <link href="../app/lib/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../app/lib/js/jquery-2.1.4.min.js"></script>
+    <script src="../app/components/angular.min.js"></script>
+    <style media="screen">
+        .parent {
+            border: 20px solid #676767;
+            padding: 20px;
+        }
+
+        .parent,
+        .directive {
+            position: relative;
+        }
+
+        .parent:after,
+        .directive:after {
+            display: inline;
+            color: #fff;
+            font-size: normal;
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            z-index: 100;
+            padding: 1px 5px;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .parent:after {
+            content: "MainCtrl Scope";
+        }
+
+        .directive {
+            padding: 20px;
+            border: 20px solid #cbccdd;
+            margin-top: 20px;
+        }
+
+        .directive:after {
+            content: "Directive Scope"
+        }
+
+        .line {
+            border-bottom: 1px dotted #ccc;
+            padding: 5px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div ng-app="myApp">
+        <div ng-controller="myController">
+            <h3>Scope: false</h3>
+            <pre>
+              Nếu chúng ta thay đổi tên bên trong textbox thì bạn có thấy rằng tên ở bên trên header cũng thay đổi theo.
+              Bởi vì không cung cấp scope ở DDO nên directive sẽ sử dụng chính scope của parrent.
+              Do đó, bất cứ thay đổi nào mà chúng ta tạo ra ở bên trong directive cũng ảnh hưởng đến parent scope.
+              Tương tự như thế, parent scope có một phương thức để đảo ngược name và được gọi đến khi chúng ta click vào header.
+              Và nếu bạn click vào đó thì nó cũng đồng thời đảo ngược name ở bên trong directive.
+            </pre>
+            <h2 ng-click="reverseName()">Hi {{name}}, Click me to reverse your name</h2>
+            <div my-directive class='directive'></div>
+            <my-directive></my-directive>
+        </div>
+
+        <div ng-controller="myController1">
+            <h3>Scope: true</h3>
+            <pre>
+              Với scope được set bằng true, AngularJS sẽ tạo ra một scope mới bằng các kế thừa từ parent scope (thông thường là controller scope,
+              nếu không thì sẽ là rootScope của ứng dụng). Bất kì thay đổi nào với scope mới này đều sẽ không ảnh hưởng tới parent scope.
+            </pre>
+            <h2 ng-click="reverseName()">Hi {{name}}, Click me to reverse your name</h2>
+            <div my-directive1 class='directive'></div>
+        </div>
+        <div ng-controller="myController2">
+            <h3>Scope: {}</h3>
+            <pre>
+              Mình gợi ý rằng bạn nên dùng cách này để thiết lập scope cho DDO trong lúc tạo custom directive.
+              Bởi vì nó sẽ đảm bảo rằng scope của directive là độc lập, không ảnh hưởng tới các nơi khác ở bên trong ứng dụng.
+              Và parent scope cũng sẽ không can thiệp vào bên trong directive scope.
+            </pre>
+            <h2 ng-click="reverseName()">Hi {{name}}, Click me to reverse your name</h2>
+            <div my-directive2 class='directive'></div>
+        </div>
+        <div ng-controller="myController3">
+            <h3>Scope: {}</h3>
+            <pre>
+              Đôi khi chúng ta cần phải truyền các giá trị từ parent scope vào bên trong directive thì làm thế nào?
+              Để truy cập được bất kì data nào của scope, chúng ta cần phải truyền nó tới directive.
+              Điều này được thực hiện bàng cách thiết lập các thuộc tính ở trong đối tượng scope của DDO
+            </pre>
+            <div class="parent">
+                <div class="line">
+                    Name inside parent scope is: <strong>{{name}}</strong>
+                    <input type="button" ng-click="reverseName()" value="Reverse name" />
+                </div>
+                <div class="line">
+                    Color inside parent scope is: <strong style="color:{{color}}">{{color|uppercase}}</strong>
+                    <input type="button" ng-click="randomColor()" value="Randomize color" />
+                </div>
+                <div class="directive" my-directive3 name="{{name}}" color="color" reverse="reverseName()"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var app = angular.module("myApp", []);
+        app.controller("myController", function($scope) {
+            $scope.name = "your_name";
+            $scope.reverseName = function() {
+                $scope.name = $scope.name.split('').reverse().join('');
+            };
+        });
+        app.controller("myController1", function($scope) {
+            $scope.name = "your_name1";
+            $scope.reverseName = function() {
+                $scope.name = $scope.name.split('').reverse().join('');
+            };
+        });
+        app.controller("myController2", function($scope) {
+            $scope.name = "your_name2";
+            $scope.reverseName = function() {
+                $scope.name = $scope.name.split('').reverse().join('');
+            };
+        });
+        app.controller("myController3", function($scope) {
+            $scope.name = "your_name";
+            $scope.color = "#000000";
+            $scope.reverseName = function() {
+                $scope.name = $scope.name.split("").reverse().join("");
+            };
+            $scope.randomColor = function() {
+                $scope.color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+            };
+        });
+        app.directive("myDirective", function() {
+            return {
+                restrict: "EA",
+                scope: false,
+                template: "<div>Your name is : {{name}}</div>" +
+                    "Change your name : <input type='text' ng-model='name' />"
+            };
+        });
+        app.directive("myDirective1", function() {
+            return {
+                restrict: "EA",
+                scope: true,
+                template: "<div>Your name is : {{name}}</div>" +
+                    "Change your name : <input type='text' ng-model='name' />"
+            };
+        });
+        app.directive("myDirective2", function() {
+            return {
+                restrict: "EA",
+                scope: {},
+                template: "<div>Your name is : {{name}}</div>" +
+                    "Change your name : <input type='text' ng-model='name' />"
+            };
+        });
+        app.directive("myDirective3", function() {
+
+            return {
+                restrict: "EA",
+                scope: {
+                    name: "@",
+                    color: "=",
+                    reverse: "&"
+                },
+                template: [
+                    "<div class='line'>",
+                    "Name : <strong>{{name}}</strong>;  Change name:<input type='text' ng-model='name' />",
+                    "</div><div class='line'>",
+                    "Color : <strong style='color:{{color}}'>{{color|uppercase}}</strong>;  Change color:<input type='text' ng-model='color' /> </div>",
+                    " <input type = 'button' ng-click = 'reverse()' value = 'Reverse Name' / > "
+                ].join("")
+            };
+        });
+    </script>
+</body>
+
+</html>

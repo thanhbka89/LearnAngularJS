@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>AngularJS Custom Directive</title>
-	<link href="../app/lib/css/bootstrap.min.css" rel="stylesheet" />	
+	<link href="../app/lib/css/bootstrap.min.css" rel="stylesheet" />
 	<script src="../app/lib/js/jquery-2.1.4.min.js"></script>
 	<script src="../app/components/angular.min.js"></script>
 </head>
@@ -40,49 +40,52 @@
 			</form>
 		</div>
 	</div>
- 
+
 	<script>
-	 //defining module
-	 var myapp = angular.module('myApp', []);
-	 
-	 //creating custom directive
-	 myapp.directive('ngCompare', [function () {
-	 	return {
-	 		require: 'ngModel',
-	 		link: function (scope, elem, attrs, ctrl) {
-	 			var firstfield = "#" + attrs.ngCompare;
+		 //defining module
+		 var myapp = angular.module('myApp', []);
 
-				//second field key up
-				elem.on('keyup', function () {
-				 	scope.$apply(function () {
-				 		var isMatch = elem.val() === $(firstfield).val();
-				 		ctrl.$setValidity('valueMatch', isMatch);
-				 	});
-				 });
-				 
-				 //first field key up
-				 $(firstfield).on('keyup', function () {
-				 	scope.$apply(function () {
-				 		var isMatch = elem.val() === $(firstfield).val();
-				 		ctrl.$setValidity('valueMatch', isMatch);
-				 	});
-				 });
+		 //creating custom directive
+		 myapp.directive('ngCompare', [function () {
+		 	return {
+		 		require: 'ngModel',
+		 		link: function (scope, elem, attrs, ctrl) {
+		 			var firstfield = "#" + attrs.ngCompare;
+					console.log(scope);
+					console.log(firstfield);
+					console.log(attrs.placeholder);
+					//second field key up
+					elem.on('keyup', function () {
+					 	scope.$apply(function () {
+							console.log(elem.val());
+					 		var isMatch = elem.val() === $(firstfield).val();
+					 		ctrl.$setValidity('valueMatch', isMatch);
+					 	});
+					 });
+
+					 //first field key up
+					 $(firstfield).on('keyup', function () {
+					 	scope.$apply(function () {
+					 		var isMatch = elem.val() === $(firstfield).val();
+					 		ctrl.$setValidity('valueMatch', isMatch);
+					 	});
+					 });
+					}
 				}
-			}
-	}]);
-	 
-	 // create angular controller
-	 myapp.controller('mainController', function ($scope) {
+		}]);
 
-		 // function to submit the form
-		 $scope.submitForm = function () {
+		 // create angular controller
+		 myapp.controller('mainController', function ($scope) {
 
-			 // check to make sure the form is completely valid
-			 if ($scope.userForm.$valid) {
-			 	alert('form is submitted');
-			 }
-		};
-	});
-</script>
+			 // function to submit the form
+			 $scope.submitForm = function () {
+
+				 // check to make sure the form is completely valid
+				 if ($scope.userForm.$valid) {
+				 	alert('form is submitted');
+				 }
+			};
+		});
+	</script>
 </body>
 </html>
