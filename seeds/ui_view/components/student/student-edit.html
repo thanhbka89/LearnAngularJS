@@ -1,0 +1,26 @@
+<div class="panel panel-success">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Student Edit</div>
+  <!-- Table -->
+	<div class="panel-body">
+		<div class = "pull-left">
+			Enter first name: <input type = "text" ng-model = "studentEditCtrl.student.firstName"><br><br>
+		</div>
+		<div class = "pull-left">
+			Enter last name: <input type = "text" ng-model = "studentEditCtrl.student.lastName"><br>
+		</div>
+	    
+		<div class = "pull-left">
+			You are entering: {{studentEditCtrl.student.firstName}} + {{studentEditCtrl.student.lastName}} = {{student.fullName() | uppercase}}	
+
+		</div>
+		<br></br>
+		<div class = "pull-left">
+			Hello <span ng-bind = "studentEditCtrl.student.firstName"></span>!
+		</div>
+
+		
+	</div>
+</div>
+
+

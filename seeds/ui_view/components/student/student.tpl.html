@@ -1,0 +1,74 @@
+
+<div class="jumbotron text-center">
+    <h1>The Student Page</h1>
+    <p>This page demonstrates <span class="text-danger">multiple</span> and <span class="text-danger">named</span> views.</p>
+</div>
+ 
+<div class = "jumbotron" style="background-color:white!important;padding-left: 5px;
+    padding-right: 25px;">
+  <div class="row">
+    
+    <div class="col-lg-12 bhoechie-tab-container">
+        
+        <div class="col-lg-3 bhoechie-tab-menu">
+            
+            <div class="list-group bg-color-primary">
+                
+                <a ui-sref="student.manage" class="list-group-item  bg-primary text-center">
+                    <i class="fa fa-sliders fa-3x "></i><br/>Manage
+                </a>
+                
+                <a href="#" class="list-group-item text-center">
+                    <i class="fa fa-print fa-3x  "></i><br/>Other
+                </a>
+                
+                <div class="list-group-item inactive" style="height:200px;">
+      
+                </div>
+   
+             </div>     
+        </div>
+            
+        <div class="col-lg-9 bhoechie-tab">
+        
+            <!-- flight section -->
+            <div class="bhoechie-tab-content fade in active">
+                <center>
+                   <div class = "row">
+                       <div class = "col-sm-6">
+                           <div ui-view = "studentList"></div>
+                       </div>
+                        <div class = "col-sm-6">
+                           <div ui-view = "studentEdit"></div>
+                       </div>
+                   </div>
+                </center>
+            </div>
+                
+            <!-- train section -->
+            <div class="bhoechie-tab-content fade in ">
+                <center>
+                      <h1 class="glyphicon glyphicon-road" style="font-size:12em;color:#55518a"></h1>
+                      <h2 style="margin-top: 0;color:#55518a">Cooming Soon</h2>
+                      <h3 style="margin-top: 0;color:#55518a">Train Reservation</h3>
+                </center>
+            </div>
+ 
+ 
+         </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+                $(document).ready(function() {
+                        $("div.bhoechie-tab-menu>div.list-group>a").click(function(e) {
+                            e.preventDefault();
+                            $(this).siblings('a.active').removeClass("active");
+                            $(this).addClass("active");
+                            var index = $(this).index();
+                            $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
+                            $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
+                });
+            });
+</script>

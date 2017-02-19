@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Single Page Application</title>
+
+    <!-- CSS (load bootstrap) -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .navbar {
+            border-radius: 0;
+        }
+    </style>
+
+    <script src="assets/js/jquery-1.11.3.min.js"></script>
+    <script src="assets/js/angularJS/angular.js"></script>
+    <script src="assets/js/angular-ui-router.js"></script>
+    <script src="assets/js/angularJS/angular-resource.js"></script>
+    <script src="assets/js/angularJS/angular-cookies.js"></script>
+
+    <script src="app.mdl.js"></script>
+    <!--script src="app.srv.js"></script-->
+    <script src="app.cfg.js"></script>
+
+    <script src="components/home/home.mdl.js"></script>
+    <script src="components/home/home.ctrl.js"></script>
+    <script src="components/home/home.cfg.js"></script>
+
+    <script src="components/student/student.mdl.js"></script>
+    <script src="components/student/student.ctrl.js"></script>
+    <script src="components/student/student.cfg.js"></script>
+    <script src="components/student/student.val.js"></script>
+    <script src="components/student/student.srv.js"></script>
+    <script src="share/ajax.srv.js"></script>
+</head>
+
+<body ng-app="example">
+    <!-- apply our angular app to our site -->
+
+    <!-- Menu -->
+    <nav class="navbar navbar-inverse" role="navigation">
+        <div class="navbar-header">
+            <a class="navbar-brand" ui-sref="#">ExampleLogo</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a ui-sref="home" ui-sref-active="active">Home</a></li>
+            <li><a ui-sref="about" ui-sref-active="active">About</a></li>
+            <li><a ui-sref="student" ui-sref-active="active">Student</a></li>
+        </ul>
+    </nav>
+
+    <!-- Content -->
+    <div class="container">
+        <!-- This is where we will inject our content -->
+        <div ui-view>
+            <!-- only one unnamed view within any template (or root html) -->
+
+        </div>
+    </div>
+
+</body>
+
+</html>

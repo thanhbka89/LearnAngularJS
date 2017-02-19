@@ -1,0 +1,131 @@
+a,     		
+a:active,	
+a:focus, 
+a:hover,
+
+a.btn,     		
+a.btn:active,	
+a.btn:focus, 
+a.btn:hover,
+
+button.btn,     		
+button.btn:active,	
+button.btn:focus, 
+button.btn:hover,
+
+.dropdown-menu li a,
+.dropdown-menu li a:active,
+.dropdown-menu li a:focus,
+.dropdown-menu li a:hover,
+
+.nav-pills li a,
+.nav-pills li a:active,
+.nav-pills li a:focus,
+.nav-pills li a:hover,
+
+.nav-tabs li a,
+.nav-tabs li a:active,
+.nav-tabs li a:focus,
+.nav-tabs li a:hover
+
+ul.nav-tabs li a,
+ul.nav-tabs li a.active,
+ul.nav-tabs li a.focus { outline:0px !important; -webkit-appearance:none;  text-decoration:none;} 
+
+
+/*  bhoechie tab */
+div.bhoechie-tab-container
+{
+z-index: 10;
+background-color: #ffffff;
+padding: 0 !important;
+border-radius: 4px;
+-moz-border-radius: 4px;
+border:1px solid #ddd;
+margin-top: 20px;
+margin-left: 10px;
+-webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+box-shadow: 0 6px 12px rgba(0,0,0,.175);
+-moz-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+background-clip: padding-box;
+opacity: 0.97;
+filter: alpha(opacity=97);
+}
+
+div.bhoechie-tab-menu
+{
+padding-right: 0;
+padding-left: 0;
+padding-bottom: 0;
+}
+
+div.bhoechie-tab-menu div.list-group{
+margin-bottom: 0;
+}
+
+div.bhoechie-tab-menu div.list-group>a{
+margin-bottom: 0;
+}
+
+div.bhoechie-tab-menu div.list-group>a .glyphicon,
+div.bhoechie-tab-menu div.list-group>a .fa 
+{
+color: #5A55A3;
+}
+
+div.bhoechie-tab-menu div.list-group>a:first-child
+{
+border-top-right-radius: 0;
+-moz-border-top-right-radius: 0;
+}
+
+div.bhoechie-tab-menu div.list-group>a:last-child
+{
+border-bottom-right-radius: 0;
+-moz-border-bottom-right-radius: 0;
+}
+ 
+div.bhoechie-tab-menu div.list-group>a.active,
+div.bhoechie-tab-menu div.list-group>a.active .glyphicon,
+div.bhoechie-tab-menu div.list-group>a.active .fa
+{
+  background-color: #5A55A3;
+  background-image: #5A55A3;
+  color: #ffffff;
+}
+
+
+div.bhoechie-tab-menu div.list-group>a.active:after
+{
+content: '';
+position: absolute;
+left: 100%;
+top: 0%;
+margin-top: -1px;
+border-right:  0px;
+border-top: 38px inset transparent;
+border-bottom: 46px inset transparent;
+border-left: 46px solid #5A55A3;
+
+}
+div.bhoechie-tab-content
+{
+background-color: #ffffff;
+/* border: 1px solid #eeeeee; */
+padding-left: 20px;
+padding-top: 10px;
+}
+
+
+div.bhoechie-tab div.bhoechie-tab-content:not(.active)
+{
+display: none;
+}
+
+div.list-group a.list-group-item.inactive.active,
+div.list-group a.list-group-item.inactive
+{
+background-color: #ffffff;  
+}
+
+ 

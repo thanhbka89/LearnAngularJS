@@ -1,0 +1,26 @@
+
+<div class="panel panel-success">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Student List</div>
+  <!-- Table -->
+ 	<table class="table table-condensed">
+	    <thead>
+	      <tr>
+	        <th>Firstname</th>
+	        <th>Lastname</th>
+	      </tr>
+	    </thead>
+
+	    <tbody>
+	    	<tr ng-repeat = "student1 in studentListCtrl.studentList">
+	    		
+	    		<td><a ui-sref="student.manage({ selectedStudent: {firstName:student1.firstName, lastName:student1.lastName}})")>{{student1.firstName}} </a></td>
+	    		
+	    		<td>{{student1.lastName}}</td>
+	    		
+	    	</tr>
+	    </tbody>
+	</table>
+</div>
+
+ 
